@@ -1,0 +1,12 @@
+{
+  "files": {
+    "main.css": "/recipeapp/static/css/main.eb3f9fd7.css",
+    "main.js": "/recipeapp/static/js/main.e90caac8.js",
+    "static/js/27.017cbcf7.chunk.js": "/recipeapp/static/js/27.017cbcf7.chunk.js",
+    "index.html": "/recipeapp/index.html"
+  },
+  "entrypoints": [
+    "static/css/main.eb3f9fd7.css",
+    "static/js/main.e90caac8.js"
+  ]
+}
