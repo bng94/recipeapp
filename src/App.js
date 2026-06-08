@@ -67,6 +67,7 @@ function App() {
 
         const response = await fetch(
           `https://recipeapi.io/api/v1/recipes?${params}`,
+          // { headers: { Authorization: `Bearer ${APP_KEY}` } },
         );
         if (!response.ok) {
           setRecipes([]);
