@@ -56,31 +56,31 @@ function App() {
   });
 
   useEffect(() => {
-    getRecipes();
-  }, [query, filters]);
+    const getRecipes = async () => {
+      try {
+        const params = new URLSearchParams({ apikey: APP_KEY, search: query });
+        if (filters.cuisine) params.append("cuisine", filters.cuisine);
+        if (filters.meal_type) params.append("meal_type", filters.meal_type);
+        if (filters.difficulty) params.append("difficulty", filters.difficulty);
+        if (filters.dietary_tags)
+          params.append("dietary_tags", filters.dietary_tags);
 
-  const getRecipes = async () => {
-    try {
-      const params = new URLSearchParams({ apikey: APP_KEY, search: query });
-      if (filters.cuisine) params.append("cuisine", filters.cuisine);
-      if (filters.meal_type) params.append("meal_type", filters.meal_type);
-      if (filters.difficulty) params.append("difficulty", filters.difficulty);
-      if (filters.dietary_tags)
-        params.append("dietary_tags", filters.dietary_tags);
-
-      const response = await fetch(
-        `https://recipeapi.io/api/v1/recipes?${params}`,
-      );
-      if (!response.ok) {
+        const response = await fetch(
+          `https://recipeapi.io/api/v1/recipes?${params}`,
+        );
+        if (!response.ok) {
+          setRecipes([]);
+          return;
+        }
+        const data = await response.json();
+        setRecipes(data.data ?? []);
+      } catch {
         setRecipes([]);
-        return;
       }
-      const data = await response.json();
-      setRecipes(data.data ?? []);
-    } catch {
-      setRecipes([]);
-    }
-  };
+    };
+
+    getRecipes();
+  }, [query, filters, APP_KEY]);
 
   const formSubmit = (e) => {
     e.preventDefault();
@@ -209,7 +209,7 @@ function App() {
       </div>
 
       <div className="recipes">
-        {recipes.length > 0 ? (
+        {recipes?.length > 0 ? (
           recipes.map((recipe) => <Recipe key={recipe.id} recipe={recipe} />)
         ) : (
           <div>No Results Found!</div>
