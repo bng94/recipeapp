@@ -1,21 +1,27 @@
 * {
-  -ms-overflow-style: none; /* Internet Explorer 10+ */
-  scrollbar-width: none; /* Firefox */
+  box-sizing: border-box;
+  -ms-overflow-style: none;
+  scrollbar-width: none;
 }
 *::-webkit-scrollbar {
-  display: none; /* Safari and Chrome */
+  display: none;
 }
+
 .App {
   min-height: 100vh;
   background-image: linear-gradient(120deg, #a1c4fd, #c2e9fb);
 }
 
 .search-form {
+  max-width: 1200px;
+  margin: 0 auto;
   min-height: 10vh;
   display: flex;
   justify-content: center;
   align-items: center;
+  padding: 0 20px;
 }
+
 .search-bar {
   width: 50%;
   border: none;
@@ -33,7 +39,27 @@
 }
 
 .recipes {
+  max-width: 1200px;
+  margin: 0 auto;
   display: flex;
   justify-content: space-around;
   flex-wrap: wrap;
+  padding: 0 10px 24px;
+}
+
+@media (max-width: 768px) {
+  .search-bar {
+    width: 65%;
+  }
+}
+
+@media (max-width: 480px) {
+  .search-form {
+    padding: 10px 12px;
+  }
+
+  .search-bar {
+    flex: 1;
+    width: auto;
+  }
 }
