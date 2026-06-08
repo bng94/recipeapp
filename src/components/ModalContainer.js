@@ -5,13 +5,13 @@ const capitalize = (str) =>
   str ? str.charAt(0).toUpperCase() + str.slice(1).replace(/_/g, " ") : "";
 
 const difficultyColors = {
-  easy:   { bg: "#d4edda", color: "#155724" },
+  easy: { bg: "#d4edda", color: "#155724" },
   medium: { bg: "#fff3cd", color: "#856404" },
-  hard:   { bg: "#f8d7da", color: "#721c24" },
+  hard: { bg: "#f8d7da", color: "#721c24" },
 };
 
 const StyledContainer = styled.div`
-  max-height: calc(90vh - 2.5rem);
+  max-height: calc(90dvh - 2.5rem);
   overflow-y: auto;
   padding: 0 6px 4px;
   font-family: "Poppins", sans-serif;
@@ -281,7 +281,8 @@ const ModalContainer = (props) => {
                   {ing.name}
                   {ing.optional && (
                     <em style={{ color: "#999", fontSize: "11px" }}>
-                      {" "}(optional)
+                      {" "}
+                      (optional)
                     </em>
                   )}
                 </span>
