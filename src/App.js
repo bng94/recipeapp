@@ -44,6 +44,8 @@ const capitalize = (str) =>
 function App() {
   const APP_KEY = process.env.REACT_APP_API_KEY;
 
+  const [loading, setLoading] = useState(false);
+  const [showSpinner, setShowSpinner] = useState(false);
   const [query, setQuery] = useState("chicken");
   const [search, setSearch] = useState("");
   const [recipes, setRecipes] = useState([]);
@@ -56,7 +58,14 @@ function App() {
   });
 
   useEffect(() => {
+    if (!loading) { setShowSpinner(false); return; }
+    const timer = setTimeout(() => setShowSpinner(true), 400);
+    return () => clearTimeout(timer);
+  }, [loading]);
+
+  useEffect(() => {
     const getRecipes = async () => {
+      setLoading(true);
       try {
         const params = new URLSearchParams({ apikey: APP_KEY, search: query });
         if (filters.cuisine) params.append("cuisine", filters.cuisine);
@@ -77,6 +86,8 @@ function App() {
         setRecipes(data.data ?? []);
       } catch {
         setRecipes([]);
+      } finally {
+        setLoading(false);
       }
     };
 
@@ -210,7 +221,12 @@ function App() {
       </div>
 
       <div className="recipes">
-        {recipes?.length > 0 ? (
+        {loading ? (
+          <div className="loading">
+            {showSpinner && <div className="loading-spinner" />}
+            <p>Loading recipes...</p>
+          </div>
+        ) : recipes?.length > 0 ? (
           recipes.map((recipe) => <Recipe key={recipe.id} recipe={recipe} />)
         ) : (
           <div>No Results Found!</div>
